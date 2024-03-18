@@ -18,7 +18,7 @@ public class LoadMainScene : MonoBehaviour
     void LoadScene()
     {
         Debug.Log("Loading Scene.");
-        PlayerData.Instance.SaveData();
+        //PlayerData.Instance.SaveData();
         SceneManager.LoadScene(1);
     }
 

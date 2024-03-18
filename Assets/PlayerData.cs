@@ -19,6 +19,9 @@ public class PlayerData : MonoBehaviour
 
     public PlayerD playerD;
 
+    public int highestScore;
+    public string nameOfHighestScore;
+
     public static PlayerData Instance;
 
     public string playerName;
@@ -26,6 +29,7 @@ public class PlayerData : MonoBehaviour
     public TMP_InputField inputField;
 
     public TMP_Text scoreTxt;
+
 
     private void Awake()
     {
@@ -43,9 +47,17 @@ public class PlayerData : MonoBehaviour
 
     private void Start()
     {
-        SaveData();
+        //SaveData();
 
         //SaveScore(0);
+    }
+
+    public void InputUpdate()
+    {
+        if (inputField != null)
+        {
+            playerName = inputField.text;
+        }
     }
 
     public void LoadData()
@@ -55,9 +67,13 @@ public class PlayerData : MonoBehaviour
         {
             string json = File.ReadAllText(path);
             PlayerD data = JsonUtility.FromJson<PlayerD>(json);
-            playerName = data.playerName;
+            //playerName = data.playerName;
             playerD.playerName = data.playerName;
             playerD.highscore = data.highscore;
+
+            highestScore = data.highscore;
+            nameOfHighestScore = data.playerName;
+
             scoreTxt.text = data.highscore.ToString();
         }
         else
@@ -77,7 +93,7 @@ public class PlayerData : MonoBehaviour
     public void SaveScore(int score)
     {
         PlayerD data = new PlayerD();
-        data.playerName = inputField.text;
+        data.playerName = playerName;
         data.highscore = score;
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
