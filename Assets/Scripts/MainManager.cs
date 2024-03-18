@@ -12,13 +12,19 @@ public class MainManager : MonoBehaviour
 
     public Text ScoreText;
     public GameObject GameOverText;
+
+    public UpdateData updateData;
     
     private bool m_Started = false;
     private int m_Points;
     
     private bool m_GameOver = false;
 
-    
+    private void Awake()
+    {
+        updateData = FindObjectOfType<UpdateData>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +78,17 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
-        PlayerData.Instance.SaveScore(m_Points);
+
+        if(m_Points > PlayerData.Instance.playerD.highscore)
+        {
+            PlayerData.Instance.SaveScore(m_Points);
+            updateData.UpdateBestScore();
+        }
+        else
+        {
+            Debug.Log("Didnt beat highscore.");
+        }
+
+        
     }
 }

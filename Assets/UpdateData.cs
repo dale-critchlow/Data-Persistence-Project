@@ -11,9 +11,14 @@ public class UpdateData : MonoBehaviour {
 
     void Awake()
     {
-        dataTxt.text = "Best Score : " + PlayerData.Instance.playerD.highscore.ToString() + " Name : " + PlayerData.Instance.playerD.playerName.ToString();
+        UpdateBestScore();
         currentUserText.text = PlayerData.Instance.playerName;
         //Best Score : Name : 0
+    }
+
+    public void UpdateBestScore()
+    {
+        dataTxt.text = "Best Score : " + PlayerData.Instance.playerD.highscore.ToString() + " Name : " + PlayerData.Instance.playerD.playerName.ToString();
     }
 
 }

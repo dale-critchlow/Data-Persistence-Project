@@ -97,6 +97,7 @@ public class PlayerData : MonoBehaviour
         data.highscore = score;
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        LoadData();
     }
 
 }
